@@ -47,7 +47,7 @@ float Temperature::get_temp()
         return -127;
     }
     
-    temp_sensor->requestTemperatures(); // sprawdzić czy szybsze nie będzie inną funkcją
+    temp_sensor->requestTemperatures();
     float temp = temp_sensor->getTempCByIndex(0);
 
     if (temp == -85)

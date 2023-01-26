@@ -98,7 +98,7 @@ void Sender::send_data(data *measurement)
 
         this->parse_data_files(&data_vector);
         config.get(SLEEP_TIME, &time_interval);
-        time = get_time_since_epoch() - ((time_interval / 1000000) * (data_vector.size())); // sprawdzić
+        time = get_time_since_epoch() - ((time_interval / 1000000) * (data_vector.size()));
 
         for (data it : data_vector)
         {

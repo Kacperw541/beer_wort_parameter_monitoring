@@ -1,0 +1,4 @@
+arduino-libraries/NTPClient@^3.2.1
+bblanchon/ArduinoJson@5.13.4
+mobizt/Firebase Arduino Client Library for ESP8266 and ESP32@^4.3.2
+paulstoffregen/OneWire@^2.3.7

@@ -29,6 +29,14 @@ bool BatteryManager::init()
     return true;
 }
 
+void BatteryManager::check()
+{
+    /* If the voltage level is critical, the program cannot be allowed to run. */
+    if (!this->init())
+        ESP.deepSleep(ESP.deepSleepMax(), RF_DISABLED);
+}
+
+
 battery_status BatteryManager::get_battery_status()
 {
     return this->status;

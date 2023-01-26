@@ -37,7 +37,7 @@
 ConfigManager& config = ConfigManager::get_instance(); /**< Config singleton instance. */
 Sender& sender = Sender::get_instance();               /**< Firebase sender singleton instance. */
 static WifiManager wifi;               /**< WiFi instance. */
-static BatteryManager battery;         /**< Battery manager instance. s*/
+static BatteryManager battery;         /**< Battery manager instance. */
 static Temperature temperature;        /**< Temperature DS18B20 sensor instance. */
 static Accelgyro accelgyro;            /**< Accelgyro MPU6050 sensor instance. */
 static data measurement;               /**< Measurement data structure. */
@@ -56,9 +56,6 @@ enum
 //--------------------------------------------------------------------------------
 /* Private functions declarations. */
 
-/** @brief Checking battery level, if critical - go to sleep mode max time*/
-void battery_check();
-
 /** @brief Wifi setup in default mode, when battery status is ok.*/
 void default_wifi_setup();
 
@@ -66,13 +63,6 @@ void default_wifi_setup();
 void battery_saving_wifi_setup();
 
 //--------------------------------------------------------------------------------
-
-void battery_check()
-{
-    /* If the voltage level is critical, the program cannot be allowed to run. */
-    if (!battery.init())
-        ESP.deepSleep(ESP.deepSleepMax(), RF_DISABLED);
-}
 
 void default_wifi_setup()
 {
@@ -115,7 +105,7 @@ void battery_saving_wifi_setup()
 
 void setup() 
 {
-    battery_check();
+    battery.check();
 
 #if LOG_DEBUG == LOG_SERIAL
     Serial.begin(9600);

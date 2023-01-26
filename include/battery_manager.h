@@ -59,6 +59,9 @@ public:
      */
     bool init();
 
+    /** @brief Checking battery level, if critical - go to sleep mode max time. */
+    void check();
+
     /**
      * @brief Get the current set battery status
      * @return battery_status - current battery status

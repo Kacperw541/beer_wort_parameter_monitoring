@@ -26,7 +26,7 @@ static bool is_begin = false;
 //--------------------------------------------------------------------------------
 /* Private function declatarions. */
 
-bool begin_time();
+static bool begin_time();
 
 //--------------------------------------------------------------------------------
 
@@ -87,7 +87,7 @@ time_t get_time_since_epoch()
  * @brief Time tool initializationh
  * @return true if successful, otherwise false.
  */
-bool begin_time()
+static bool begin_time()
 {
     timeClient.begin();
     if(!timeClient.update())

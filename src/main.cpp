@@ -56,7 +56,7 @@ enum
 //--------------------------------------------------------------------------------
 /* Private functions declarations. */
 
-/** @brief Wifi setup in default mode, when battery status is ok.*/
+/** @brief Wifi setup in default mode, when battery status is ok. */
 void default_wifi_setup();
 
 /** @brief Wifi setup when battery status is low. */

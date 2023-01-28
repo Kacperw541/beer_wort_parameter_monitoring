@@ -16,7 +16,7 @@
 
 //--------------------------------------------------------------------------------
 
-#define LOG_OFF    0    /**< Logs disabled*/
+#define LOG_OFF    0    /**< Logs disabled. */
 #define LOG_SERIAL 1    /**< Logs sending via the serial port. */
 #define LOG_WIFI   2    /**< Logs sending to the database via wifi. */
 

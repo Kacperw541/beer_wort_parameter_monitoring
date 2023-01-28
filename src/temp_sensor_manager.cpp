@@ -47,8 +47,8 @@ float Temperature::get_temp()
         return -127;
     }
     
-    temp_sensor->requestTemperatures();
-    float temp = temp_sensor->getTempCByIndex(0);
+    temp_sensor->requestTemperaturesByAddress(&this->device_address);
+    float temp = temp_sensor->getTempC(&this->device_address);
 
     if (temp == -85)
     {

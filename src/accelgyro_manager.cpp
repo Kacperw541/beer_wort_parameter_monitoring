@@ -128,7 +128,6 @@ void Accelgyro::calculate_plato(float temperature)
                                   2.04052596 * 10e-06 * t * t - 2.32820948 * 10e-09 * t * t * t;
     gravity *= sg_correction_factor;
 
-    /*https://jphosom.github.io/alchemyoverlord/temp_correction.html*/
     plato = (-1 * 616.868) + (1111.14 * gravity) - (630.272 * gravity * gravity) + (135.997 * gravity * gravity * gravity);
 }
 

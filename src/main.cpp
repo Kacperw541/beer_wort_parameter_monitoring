@@ -161,7 +161,7 @@ void loop()
     LOG("[MAIN] Deep Sleep for : " + String(sleep_time/60000000) + "min");
     temperature.sleep();
     accelgyro.sleep();
-    ESP.deepSleep(sleep_time/60);
+    ESP.deepSleep(sleep_time);
 
     LOG("[MAIN] SHOULD NEVER BE HERE!");
 }

@@ -20,7 +20,6 @@ static WiFiUDP ntpUDP;
 static NTPClient time_client(ntpUDP, "pool.ntp.org", UTC_OFFSET_SEC);
 static time_t time_since_epoch;
 static time_t start_time;
-
 static char time_buff[32];
 static bool initialized = false;
 
@@ -88,10 +87,13 @@ time_t get_time_since_epoch()
  * @brief Time tool initializationh
  * @return true if successful, otherwise false.
  */
-static bool begin_time()    // zrobić tak jak było bo ten begin coś zwraca upośledzone gówno
+static bool begin_time()
 {
+    if (!WiFi.isConnected())
+        return false;
+
     time_client.begin();
-    if(!time_client.update())
+    if (!time_client.update())
         return false;
 
     time_since_epoch = time_client.getEpochTime();

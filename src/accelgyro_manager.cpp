@@ -132,7 +132,7 @@ void Accelgyro::calculate_plato(float temperature)
     }
 
     /* Math in  mash SummerZym95 <- formula (7). */
-    plato = (-1 * 668.962) + (1262.45 * gravity) - (776.43 * gravity * gravity) + (182.94 * gravity * gravity * gravity);
+    plato = (-1 * 665.362) + (1262.45 * gravity) - (776.43 * gravity * gravity) + (182.94 * gravity * gravity * gravity);
 }
 
 /**

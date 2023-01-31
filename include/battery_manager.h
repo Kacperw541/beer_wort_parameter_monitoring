@@ -23,6 +23,9 @@
 #define BATTERY_HIGH     4.0f 
 #define VOLTAGE_OFFSET   0.3f
 
+#define ADC_PIN          A0
+#define ADC_DIVIDER      171.39f
+
 //--------------------------------------------------------------------------------
 /* Public constants and types. */
 

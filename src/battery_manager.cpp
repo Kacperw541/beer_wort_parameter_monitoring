@@ -13,7 +13,7 @@
 
 bool BatteryManager::init()
 {
-    voltage = (analogRead(A0) / (float)191.8) + VOLTAGE_OFFSET;
+    voltage = (analogRead(ADC_PIN) / ADC_DIVIDER);
     if (voltage <= BATTERY_VERY_LOW)
     {
         status = BATTERY_STATUS_CRITICAL;
@@ -44,7 +44,7 @@ battery_status BatteryManager::get_battery_status()
 
 float BatteryManager::get_voltage()
 {
-    voltage = (analogRead(A0) / 191.8) + VOLTAGE_OFFSET;
+    voltage = (analogRead(ADC_PIN) / ADC_DIVIDER);
     LOG("[BATTERY MANAGER] Battery voltage : " + String(this->voltage));
     return this->voltage;
 }

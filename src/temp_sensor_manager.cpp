@@ -64,7 +64,7 @@ float Temperature::get_temp()
 
     LOG("[TEMP_SENSOR_MANAGER] Temperature read :" + String(temp));
 
-    return temp;
+    return (temp + TEMPERATURE_OFFSET);
 }
 
 void Temperature::sleep()

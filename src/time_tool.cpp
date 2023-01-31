@@ -80,7 +80,7 @@ time_t get_time_since_epoch()
         if (!is_begin)
             return 0;
     }
-    return timeClient.getEpochTime();
+    return timeSinceEpoch;
 }
 
 /**

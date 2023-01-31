@@ -45,6 +45,9 @@ public:
      */
     float get_temp();
 
+    /** @brief One wire communication depower. */
+    void sleep();
+
 private:
 
     bool initialized;               /**< Flag indicating sensor initialization status. */

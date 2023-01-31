@@ -239,8 +239,6 @@ bool Sender::send_time()
     }
 
     time_t time = get_time_since_epoch();
-    if (time == 0)
-        return false;
 
     this->parent_path = this->database_path + "/time";
     if (database->pushFloatAsync(fbdo, parent_path, time))

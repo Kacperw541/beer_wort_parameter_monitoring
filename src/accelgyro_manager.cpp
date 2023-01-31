@@ -121,14 +121,18 @@ void Accelgyro::calculate_plato(float temperature)
                                                   (coeff_c * tilt * tilt) + (coeff_d *tilt) + coeff_e
                                                 : ACCEL_TILT_ERROR;
 
-    /* Gravity correction depending on the temperature.
+    /* Gravity correction depending on the temperature, if temperature read ok.
        source : https://www.homebrewersassociation.org/attachments/0000/2497/Math_in_Mash_SummerZym95.pdf  */
-    double t = (temperature * 1.8) + 32;  /**< Temperature in Fahrenheit. */
-    double sg_correction_factor = 1.00130346 - 1.34722124 * 10e-04 * t +
-                                  2.04052596 * 10e-06 * t * t - 2.32820948 * 10e-09 * t * t * t;
-    gravity *= sg_correction_factor;
+    if (temperature != -127)
+    {
+        double t = (temperature * 1.8) + 32;  /**< Temperature in Fahrenheit. */
+        double sg_correction_factor = 1.00130346 - 1.34722124 * 10e-04 * t +
+                                    2.04052596 * 10e-06 * t * t - 2.32820948 * 10e-09 * t * t * t;
+        gravity *= sg_correction_factor;
+    }
 
-    plato = (-1 * 616.868) + (1111.14 * gravity) - (630.272 * gravity * gravity) + (135.997 * gravity * gravity * gravity);
+    /* Math in  mash SummerZym95 <- formula (7). */
+    plato = (-1 * 668.962) + (1262.45 * gravity) - (776.43 * gravity * gravity) + (182.94 * gravity * gravity * gravity);
 }
 
 /**

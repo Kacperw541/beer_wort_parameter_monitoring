@@ -20,7 +20,7 @@
 #define LOG_SERIAL 1    /**< Logs sending via the serial port. */
 #define LOG_WIFI   2    /**< Logs sending to the database via wifi. */
 
-#define LOG_DEBUG  LOG_OFF   /**< Selected logging mode. */
+#define LOG_DEBUG  LOG_SERIAL   /**< Selected logging mode. */
 
 #if (LOG_DEBUG == LOG_SERIAL)
     #define LOG(x) Serial.print(get_utc_time()); Serial.println(x)

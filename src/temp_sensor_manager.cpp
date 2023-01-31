@@ -47,8 +47,8 @@ float Temperature::get_temp()
         return -127;
     }
     
-    temp_sensor->requestTemperaturesByAddress(&this->device_address);
-    float temp = temp_sensor->getTempC(&this->device_address);
+    temp_sensor->requestTemperaturesByIndex(0);
+    float temp = temp_sensor->getTempCByIndex(0);
 
     if (temp == -85)
     {
@@ -65,4 +65,9 @@ float Temperature::get_temp()
     LOG("[TEMP_SENSOR_MANAGER] Temperature read :" + String(temp));
 
     return temp;
+}
+
+void Temperature::sleep()
+{
+    this->one_wire->depower();
 }

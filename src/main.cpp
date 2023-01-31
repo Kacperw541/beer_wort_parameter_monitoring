@@ -159,6 +159,7 @@ void loop()
 
     LOG("[MAIN] Program execution time :" + String(millis()) + " ms");
     LOG("[MAIN] Deep Sleep for : " + String(sleep_time/60000000) + "min");
+    temperature.sleep();
     accelgyro.sleep();
     ESP.deepSleep(sleep_time);
 

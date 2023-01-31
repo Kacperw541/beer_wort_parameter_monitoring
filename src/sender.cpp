@@ -104,10 +104,10 @@ void Sender::send_data(data *measurement)
         {
             status &= this->send_temperature(it.temperature)         &&
                       this->send_battery_voltage(it.battery_voltage) &&
-                      this->send_plato(it.plato);
+                      this->send_plato(it.plato)                     &&
+                      this->send_time(time);
 
             time += (time_interval / 1000000);
-            status &= this->send_time(time);
         }
     }
 
@@ -239,9 +239,11 @@ bool Sender::send_time()
     }
 
     time_t time = get_time_since_epoch();
+    if (time == 0)
+        return false;
 
     this->parent_path = this->database_path + "/time";
-    if (database->pushFloatAsync(fbdo, parent_path, time))
+    if (database->pushIntAsync(fbdo, parent_path, time))
         return true;
     else
     {

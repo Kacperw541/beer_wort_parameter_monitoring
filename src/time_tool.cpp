@@ -16,12 +16,13 @@
 //--------------------------------------------------------------------------------
 /* Private variables. */
 
-WiFiUDP ntpUDP;
-NTPClient timeClient(ntpUDP, "pool.ntp.org", UTC_OFFSET_SEC);
-static time_t StartTime;
-static time_t timeSinceEpoch;
+static WiFiUDP ntpUDP;
+static NTPClient time_client(ntpUDP, "pool.ntp.org", UTC_OFFSET_SEC);
+static time_t time_since_epoch;
+static time_t start_time;
+
 static char time_buff[32];
-static bool is_begin = false;
+static bool initialized = false;
 
 //--------------------------------------------------------------------------------
 /* Private function declatarions. */
@@ -32,20 +33,19 @@ static bool begin_time();
 
 char* get_utc_time()
 {
-    if (!is_begin)
+    if (!initialized)
     {
-        is_begin = begin_time();
-        if (!is_begin)
+        if (!begin_time())
         {
             sprintf(time_buff, "");
             return time_buff;
         }
     }
 
-    timeSinceEpoch += (millis()/1000) - StartTime;
-    StartTime = millis()/1000;
+    time_since_epoch += (millis()/1000) - start_time;
+    start_time = millis()/1000;
     std::tm *timeResult{};
-    timeResult = std::gmtime( &timeSinceEpoch );
+    timeResult = std::gmtime( &time_since_epoch );
     sprintf(time_buff, "[%04d-%02d-%02d %02d:%02d:%02d] ", timeResult->tm_year + 1900, timeResult->tm_mday, timeResult->tm_mon +1
                                             , timeResult->tm_hour, timeResult->tm_min, timeResult->tm_sec);
     return time_buff;
@@ -53,20 +53,19 @@ char* get_utc_time()
 
 char* get_utc_time_format_()
 {
-    if (!is_begin)
+    if (!initialized)
     {
-        is_begin = begin_time();
-        if (!is_begin)
+        if (!begin_time())
         {
             sprintf(time_buff, "");
             return time_buff;
         }
     }
 
-    timeSinceEpoch += (millis()/1000) - StartTime;
-    StartTime = millis()/1000;
+    time_since_epoch += (millis()/1000) - start_time;
+    start_time = millis()/1000;
     std::tm *timeResult{};
-    timeResult = std::gmtime( &timeSinceEpoch );
+    timeResult = std::gmtime( &time_since_epoch );
     sprintf(time_buff, "%04d%02d%02d%02d%02d%02d", timeResult->tm_year + 1900 ,timeResult->tm_mday, timeResult->tm_mon +1
                                             , timeResult->tm_hour, timeResult->tm_min, timeResult->tm_sec);
     return time_buff;
@@ -74,27 +73,30 @@ char* get_utc_time_format_()
 
 time_t get_time_since_epoch()
 {
-    if (!is_begin)
+    if (!initialized)
     {
-        is_begin = begin_time();    
-        if (!is_begin)
+        if (!begin_time())
             return 0;
     }
-    return timeSinceEpoch;
+    time_since_epoch += (millis()/1000) - start_time;
+    start_time = millis()/1000;
+
+    return time_since_epoch;
 }
 
 /**
  * @brief Time tool initializationh
  * @return true if successful, otherwise false.
  */
-static bool begin_time()
+static bool begin_time()    // zrobić tak jak było bo ten begin coś zwraca upośledzone gówno
 {
-    timeClient.begin();
-    if(!timeClient.update())
+    time_client.begin();
+    if(!time_client.update())
         return false;
 
-    timeSinceEpoch = timeClient.getEpochTime();
-    StartTime = 0;
-    timeClient.end();
+    time_since_epoch = time_client.getEpochTime();
+    start_time = 0;
+    time_client.end();
+    initialized = true;
     return true;
 }

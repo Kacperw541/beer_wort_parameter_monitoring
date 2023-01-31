@@ -240,7 +240,10 @@ bool Sender::send_time()
 
     time_t time = get_time_since_epoch();
     if (time == 0)
+    {
+        LOG("[SENDER] The time value cannot be retrieved.");
         return false;
+    }
 
     this->parent_path = this->database_path + "/time";
     if (database->pushIntAsync(fbdo, parent_path, time))

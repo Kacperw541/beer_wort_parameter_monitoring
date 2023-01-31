@@ -91,7 +91,7 @@ static bool begin_time()
 {
     if (!WiFi.isConnected())
         return false;
-
+        
     time_client.begin();
     if (!time_client.update())
         return false;

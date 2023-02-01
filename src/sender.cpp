@@ -98,7 +98,10 @@ void Sender::send_data(data *measurement)
 
         this->parse_data_files(&data_vector);
         config.get(SLEEP_TIME, &time_interval);
-        time = get_time_since_epoch() - ((time_interval / 1000000) * (data_vector.size()));
+        time = get_time_since_epoch();
+        
+        /* If there is a time read error, do not calculate the time, but send the error value. */
+        time += time == TIME_ERROR ? 0 : - ((time_interval / 1000000) * (data_vector.size()));
 
         for (data it : data_vector)
         {
@@ -107,7 +110,7 @@ void Sender::send_data(data *measurement)
                       this->send_plato(it.plato)                     &&
                       this->send_time(time);
 
-            time += (time_interval / 1000000);
+            time == TIME_ERROR ? 0 : time += (time_interval / 1000000);
         }
     }
 
@@ -239,11 +242,6 @@ bool Sender::send_time()
     }
 
     time_t time = get_time_since_epoch();
-    if (time == 0)
-    {
-        LOG("[SENDER] The time value cannot be retrieved.");
-        return false;
-    }
 
     this->parent_path = this->database_path + "/time";
     if (database->pushIntAsync(fbdo, parent_path, time))

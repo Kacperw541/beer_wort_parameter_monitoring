@@ -62,7 +62,7 @@ float Temperature::get_temp()
         return temp;
     }
 
-    LOG("[TEMP_SENSOR_MANAGER] Temperature read :" + String(temp));
+    LOG("[TEMP_SENSOR_MANAGER] Temperature read :" + String(temp + TEMPERATURE_OFFSET));
 
     return (temp + TEMPERATURE_OFFSET);
 }

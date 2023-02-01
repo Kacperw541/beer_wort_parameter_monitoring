@@ -75,7 +75,7 @@ time_t get_time_since_epoch()
     if (!initialized)
     {
         if (!begin_time())
-            return 0;
+            return TIME_ERROR;
     }
     time_since_epoch += (millis()/1000) - start_time;
     start_time = millis()/1000;

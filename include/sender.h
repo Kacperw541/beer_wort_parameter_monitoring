@@ -63,9 +63,9 @@ public:
 
     /**
      * @brief Save measurement data to a file
-     * @param [in] measurement - Pointer to the structure with measurement data
+     * @param [in] measurement - Reference to the structure with measurement data
      */
-    void save_data(data &);
+    void save_data(data &measurement);
 
 #if LOG_DEBUG == LOG_WIFI
     /**

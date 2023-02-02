@@ -18,6 +18,10 @@
 #include "log_debug.h"
 
 //--------------------------------------------------------------------------------
+
+#define CONFIG_MAX_READING_ATTEMPS 3
+
+//--------------------------------------------------------------------------------
 /* Public constants and types. */
 
 /** @brief  Setting type used to get and set the value. */

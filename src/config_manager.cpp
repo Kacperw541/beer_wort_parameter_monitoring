@@ -43,9 +43,9 @@ void ConfigManager::init()
     while(!load())
     {
         LOG("[CONFIG MANAGER] Config load failed, retry :" + String(++cnt));
-        if (cnt == 3)
+        if (cnt == CONFIG_MAX_READING_ATTEMPS)
         {
-            LOG("[CONFIG MANAGER] Could not load config!"); // JAKOŚ INACZEJ TO OBSŁUŻYĆ
+            LOG("[CONFIG MANAGER] Could not load config!");
             ESP.deepSleep(ESP.deepSleepMax());
         }
     }
